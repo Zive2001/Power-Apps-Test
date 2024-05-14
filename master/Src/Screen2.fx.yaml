@@ -1,0 +1,178 @@
+Screen2 As screen:
+    OnVisible: |
+        =Set(varFirstDayOfMonth, 
+            Date(
+                Year(Today()),
+                Month(Today()),
+                1
+            )
+        )
+
+    btn_Calendar_Today As button:
+        OnSelect: |
+            =Set(varFirstDayOfMonth, 
+                Date(
+                    Year(Today()),
+                    Month(Today()),
+                    1
+                )
+            )
+        Text: ="Today"
+        X: =1088
+        Y: =55
+        ZIndex: =1
+
+    gal_Calendar_Days As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Fill: =Color.White
+        Height: =527
+        Items: |-
+            =ForAll(
+                Sequence(42),
+                varFirstDayOfMonth
+                +Value-Weekday(varFirstDayOfMonth, StartOfWeek.Sunday)
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =270
+        Width: =1262
+        WrapCount: =7
+        X: =50
+        Y: =206
+        ZIndex: =2
+
+        Label2 As label:
+            BorderColor: =RGBA(179, 179, 179, 1)
+            BorderThickness: =0.5
+            Height: =270
+            HoverFill: |-
+                =ColorValue("#FD625E10")
+            OnSelect: |-
+                =Set(
+                    varFirstDayOfMonth,
+                    Date(
+                        Year(ThisItem.Value),
+                        Month(ThisItem.Value),
+                        1
+                    )
+                );
+            PressedFill: |-
+                =ColorValue("#FD625E30")
+            Text: =
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        Button6 As button:
+            Color: |-
+                =If(
+                    IsToday(ThisItem.Value), Color.White,
+                    Date(Year(ThisItem.Value),   
+                    Month(ThisItem.Value),1)=varFirstDayOfMonth,Color.Black,
+                    Color.LightGray
+                )
+            Fill: |-
+                =If(IsToday(ThisItem.Value), ColorValue("#FD625E"),Color.Transparent)
+            Height: =35
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnSelect: =Select(Parent)
+            PressedColor: =Self.Color
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =180
+            RadiusBottomRight: =Self.RadiusBottomLeft
+            RadiusTopLeft: =Self.RadiusBottomLeft
+            RadiusTopRight: =Self.RadiusBottomLeft
+            Text: =Day(ThisItem.Value)
+            Width: =77
+            Y: =8
+            ZIndex: =2
+
+        Gallery9 As gallery.galleryHorizontal:
+            DelayItemLoading: =true
+            Height: =207
+            Items: =Sort(Filter(Filter(Calendars, Text(Start,"mm/dd/yyyy") = Button6.Text),Name=ComboBox1_1.Selected.Value),Rank,SortOrder.Ascending)
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplateSize: =175.28571428571428
+            Width: =180.28571428571428
+            Y: =62
+            ZIndex: =3
+
+            Button8 As button:
+                OnSelect: =Select(Parent)
+                Text: ="Button"
+                X: =15.285714285714278
+                Y: =40
+                ZIndex: =1
+
+    Label4 As label:
+        Color: =RGBA(0, 13, 75, 1)
+        Font: =Font.'Lato Black'
+        FontWeight: =FontWeight.Semibold
+        Height: =55
+        Size: =20
+        Text: =Text(varFirstDayOfMonth,"[$-en-US]mmmm yyyy")
+        Width: =240
+        X: =104
+        Y: =100
+        ZIndex: =3
+
+    gal_Calendar_Weekdays As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Fill: |-
+            =ColorValue("#FD625E")
+        Height: =45
+        Items: =Calendar.WeekdaysShort()
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/7
+        Width: =gal_Calendar_Days.Width
+        X: =50
+        Y: =gal_Calendar_Days.Y - Self.Height
+        ZIndex: =4
+
+        Label6 As label:
+            Color: =Color.White
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Value
+            Width: =Parent.TemplateWidth
+            X: =2
+            Y: =5
+            ZIndex: =1
+
+    Icon2 As icon.ChevronLeft:
+        Color: =RGBA(51, 51, 51, 1)
+        Height: =40
+        Icon: =Icon.ChevronLeft
+        OnSelect: |-
+            =Set(varFirstDayOfMonth,
+                Date(
+                    Year(varFirstDayOfMonth),
+                    Month(varFirstDayOfMonth)-1,
+                    1
+                )
+            )
+        Width: =40
+        X: =1025
+        Y: =55
+        ZIndex: =5
+
+    Icon3 As icon.ChevronRight:
+        Color: =RGBA(51, 51, 51, 1)
+        Height: =40
+        Icon: =Icon.ChevronRight
+        OnSelect: |-
+            =Set(varFirstDayOfMonth,
+                Date(
+                    Year(varFirstDayOfMonth),
+                    Month(varFirstDayOfMonth)+1,
+                    1
+                )
+            )
+        Width: =40
+        X: =1272
+        Y: =55
+        ZIndex: =6
+

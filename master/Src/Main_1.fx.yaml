@@ -1,0 +1,491 @@
+Main_1 As screen:
+    OnVisible: |-
+        =Set(_dateSelected, Today());
+        Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days));
+        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+        Set(_calendarVisible,true)
+
+    Image5_1 As image:
+        Height: =91
+        Image: ='Ellipse 1'
+        Width: =113
+        X: =656
+        Y: =6
+        ZIndex: =1
+
+    LblMonthSelected2_5 As label:
+        Color: =RGBA(0, 48, 73, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        Size: =25
+        Text: =Text(_firstDayOfMonth, "mmmm yyyy")
+        Visible: =_calendarVisible
+        Width: =190
+        Wrap: =false
+        X: =1100
+        Y: =75
+        ZIndex: =2
+
+    iconPrevMonth2_5 As icon.ChevronLeft:
+        Color: =RGBA(0, 48, 73, 1)
+        Height: =40
+        Icon: =Icon.ChevronLeft
+        OnSelect: |-
+            =/*changes month view to previous month*/
+            Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+            /*collects calendar events for all days in current month view. Updates _minDate to prevent duplicate data collection if user returns to this month view*/
+            If(_minDate > _firstDayOfMonth, Set(_minDate, _firstDayOfMonth))
+        PaddingBottom: =7
+        PaddingLeft: =7
+        PaddingRight: =7
+        PaddingTop: =7
+        TabIndex: =0
+        Tooltip: ="View previous month"
+        Visible: =_calendarVisible
+        Width: =40
+        X: =1044
+        Y: =85
+        ZIndex: =3
+
+    iconNextMonth2_5 As icon.ChevronRight:
+        Color: =RGBA(0, 48, 73, 1)
+        Height: =40
+        Icon: =Icon.ChevronRight
+        OnSelect: |-
+            =/*changes month view to next month*/
+            Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, 1, TimeUnit.Months));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            /*collects calendar events for all days in current month view. Updates _maxDate to prevent duplicate data collection if user returns to this month view*/
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+            If(_lastDayOfMonth > _maxDate, Set(_maxDate, _lastDayOfMonth))
+        PaddingBottom: =7
+        PaddingLeft: =7
+        PaddingRight: =7
+        PaddingTop: =7
+        TabIndex: =0
+        Tooltip: ="View next month"
+        Visible: =_calendarVisible
+        Width: =40
+        X: =1296
+        Y: =85
+        ZIndex: =4
+
+    WeekdayGallery2_5 As gallery.WeekdayGallery:
+        '#CopilotOverlayLabel': ="Filtered"
+        AccessibleLabel: ="Days of the week"
+        BorderColor: =RGBA(0, 23, 31, 1)
+        Fill: =RGBA(0, 23, 31,1)
+        Height: =45
+        Items: =Calendar.WeekdaysShort()
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/7
+        Visible: =_calendarVisible
+        Width: =MonthDayGallery2_5.Width
+        X: =MonthDayGallery2_5.X
+        Y: |
+            =MonthDayGallery2_5.Y - Self.Height
+        ZIndex: =5
+
+        Title9_5 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =45
+            OnSelect: =Select(Parent)
+            Size: =20
+            Text: =ThisItem.Value
+            Width: =182.42857142857142
+            Wrap: =false
+            Y: =WeekdayGallery2_5.TemplateHeight / 2 - Self.Height / 2
+            ZIndex: =1
+
+    MonthDayGallery2_5 As gallery.MonthDayGallery:
+        '#CopilotOverlayLabel': ="Filtered"
+        AccessibleLabel: ="Days of selected month"
+        BorderThickness: =1
+        Height: =593
+        Items: =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41]
+        Layout: =Layout.Vertical
+        OnSelect: =
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =542
+        Visible: =_calendarVisible
+        Width: =1277
+        WrapCount: =7
+        X: =77
+        Y: =175
+        ZIndex: =6
+
+        Rectangle6_4 As rectangle:
+            Fill: =RGBA(38, 70, 83, 1)
+            Height: =540
+            OnSelect: =Select(Parent)
+            Visible: =And(DateAdd(_firstDayInView, ThisItem.Value) = Today(), Title10_15.Visible)
+            Width: =182.42857142857142
+            Y: =2
+            ZIndex: =1
+
+        Subcircle2_5 As circle:
+            Fill: =RGBA(255,100,100, 1)
+            Height: =40
+            OnSelect: =Select(Parent)
+            Visible: |
+                =And(DateAdd(_firstDayInView, ThisItem.Value) = Today(), Title10_15.Visible)
+            Width: =40
+            X: =6
+            Y: =2
+            ZIndex: =2
+
+        Title10_13 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(50, 86, 160, 1)
+            BorderThickness: =1
+            Color: =If(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, RGBA(255, 255, 255, 1), DateAdd(_firstDayInView, ThisItem.Value) = Today(), RGBA(47, 41, 43, 1), LblMonthSelected2_5.Color)
+            Fill: =RGBA(0,0,0,0)
+            FocusedBorderColor: =Self.Color
+            FocusedBorderThickness: =2
+            Height: =542
+            OnSelect: =Set(_dateSelected, DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days));
+            Size: =20
+            TabIndex: =0
+            Text: =
+            Visible: |-
+                =/*This item is in a row containing no days of the visible month. It is in the row after the row where the last day of the month occurs*/ 
+                 !(DateAdd(_firstDayInView,ThisItem.Value,TimeUnit.Days) - Weekday(DateAdd(_firstDayInView,ThisItem.Value,TimeUnit.Days)) + 1 > _lastDayOfMonth)
+            Width: =182.42857142857142
+            Wrap: =false
+            ZIndex: =3
+
+        Gallery9_4 As gallery.galleryVertical:
+            '#CopilotOverlayLabel': ="Filtered"
+            Height: =500
+            Items: =Sort(Filter(Filter(Calendars, Text(Start,"mm/dd/yyyy") = Title10_14.Text),Name=Label9.Text),Rank,SortOrder.Ascending)
+            Layout: =Layout.Vertical
+            TemplateSize: =76
+            Width: =182.42857142857142
+            Y: =42
+            ZIndex: =4
+
+            Button7_4 As button:
+                BorderThickness: =1
+                Fill: |
+                    =If(
+                        imglabel_1.Text = "Accept",
+                        RGBA(42, 157, 143,1),
+                        imglabel_1.Text = "Decline",
+                        RGBA(214, 40, 40,1),
+                        RGBA(89, 89, 89,1)// Default color if the label text doesn't match any case
+                    )
+                FontWeight: =FontWeight.Normal
+                Height: =If(Len(Button7_4.Text)<10, 30, Len(Button7_4.Text)<30, 50, Len(Button7_4.Text)<60, 70, Len(Button7_4.Text)<90, 90, 90)
+                HoverFill: =ColorFade(Button7_4.Fill, -20%)
+                OnSelect: |-
+                    =Set(Popup,true);
+                    Set(var,ThisItem.Subject);
+                    Set(Sid,ThisItem.Id)
+                    
+                    
+                    
+                    
+                      
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Subject
+                Tooltip: |-
+                    ="Subject : "&ThisItem.Subject&"
+                    Start :    "&ThisItem.'Start - Time'&"
+                    Start :    "&ThisItem.'End - Time'
+                Width: =130
+                X: =8
+                Y: =13
+                ZIndex: =1
+
+            Image3_3 As image:
+                Height: =30
+                Image: =check
+                OnSelect: =Select(Parent)
+                Visible: =If(imglabel_1.Text ="Accept",true,false)
+                Width: =30
+                X: =142
+                Y: =8
+                ZIndex: =4
+
+            imglabel_1 As label:
+                Height: =33
+                OnSelect: =Select(Parent)
+                Text: |
+                    =LookUp(Sort('PI-LSTW',Created,SortOrder.Descending),SID = ThisItem.Id,Status)
+                Visible: =false
+                Width: =108
+                X: =64.42857142857142
+                Y: =43
+                ZIndex: =5
+
+            Image3_4 As image:
+                Height: =30
+                Image: =cancel
+                OnSelect: =Select(Parent)
+                Visible: =If(imglabel_1.Text ="Decline",true,false)
+                Width: =30
+                X: =142
+                Y: =8
+                ZIndex: =6
+
+            Image3_5 As image:
+                Height: =30
+                Image: =hourglass_1
+                OnSelect: =Select(Parent)
+                Visible: =If(imglabel_1.Text=Blank(),true,false)
+                Width: =30
+                X: =142
+                Y: =8
+                ZIndex: =7
+
+        Group3_4 As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =6
+
+            Title10_14 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(0, 0, 0, 0)
+                Color: =If(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, LblMonthSelected2_5.Color, DateAdd(_firstDayInView, ThisItem.Value) = Today(), LblMonthSelected2_5.Color, LblMonthSelected2_5.Color)
+                Fill: =RGBA(0,0,0,0)
+                FocusedBorderColor: =Self.Color
+                FocusedBorderThickness: =2
+                Height: =50
+                OnSelect: |-
+                    =Set(_dateSelected, DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days));
+                    Set(NewAppoinmentPopup,true);
+                Size: =20
+                TabIndex: =0
+                Text: =Text(DateAdd(_firstDayInView,ThisItem.Value,TimeUnit.Days),"mm/dd/yyyy")
+                Visible: =false
+                Width: =147
+                Wrap: =false
+                ZIndex: =5
+
+            Title10_15 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(0, 0, 0, 0)
+                Color: =If(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, LblMonthSelected2_5.Color, DateAdd(_firstDayInView, ThisItem.Value) = Today(), LblMonthSelected2_5.Color, LblMonthSelected2_5.Color)
+                Fill: |-
+                    =/*Fill value changes if the gallery item day = today, or if it lies outside of the current month*/             
+                    If(
+                        /*Date selected is today*/
+                        DateAdd(_firstDayInView, ThisItem.Value) = Today() && DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, RGBA(0,0,0,0),
+                        /*Today when it is not selected*/
+                        DateAdd(_firstDayInView, ThisItem.Value) = Today(),  RGBA(0,0,0,0), 
+                        /*The day is outside the range of the currently selected month*/
+                        Abs(Self.Text - ThisItem.Value) > 10,RGBA(200, 200, 200, 01), RGBA(0, 0, 0, 0))
+                FocusedBorderColor: =Self.Color
+                FocusedBorderThickness: =2
+                Height: =37
+                OnSelect: |-
+                    =Set(_dateSelected, DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days));
+                    Set(NewAppoinmentPopup,true);
+                Size: =20
+                TabIndex: =0
+                Text: =Day(DateAdd(_firstDayInView,ThisItem.Value,TimeUnit.Days))
+                Width: =50
+                Wrap: =false
+                Y: =2
+                ZIndex: =6
+
+    Rectangle1_2 As rectangle:
+        Fill: =RGBA(26, 26, 26, 0.4)
+        Height: =768
+        Visible: =If(Popup=true,true,false)
+        Width: =1366
+        ZIndex: =8
+
+    DecLbl_1 As label:
+        Text: ="Decline"
+        Visible: =false
+        X: =40
+        Y: =40
+        ZIndex: =16
+
+    AcceptLbl_1 As label:
+        Text: ="Accept"
+        Visible: |
+            =false
+        X: =65
+        Y: =31
+        ZIndex: =17
+
+    pop_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =17
+
+        Button1_1 As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =400
+            HoverColor: =RGBA(148, 27, 12, 1)
+            HoverFill: =RGBA(148, 27, 12, 1)
+            PressedColor: =RGBA(148, 27, 12, 1)
+            PressedFill: =RGBA(148, 27, 12, 1)
+            Text: =""
+            Visible: =If(Popup=true,true,false)
+            Width: =673
+            X: =353
+            Y: =221
+            ZIndex: =9
+
+        Button2_2 As button:
+            Fill: =RGBA(0, 127, 95, 1)
+            FocusedBorderThickness: =2
+            Height: =62
+            HoverFill: =RGBA(64, 145, 108, 1)
+            OnSelect: |-
+                =Patch(
+                    'PI-LSTW',
+                    Defaults('PI-LSTW'),
+                    {Subject: Label3_1.Text},
+                    {Status: AcceptLbl_1.Text},
+                    {SID:IdLbl_1.Text}
+                );
+                Set(Popup,false)
+            PressedFill: =RGBA(0, 127, 95, 1)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: ="Accept"
+            Visible: =If(Popup=true,true,false)
+            Width: =144
+            X: =438
+            Y: =508
+            ZIndex: =10
+
+        Label1_1 As label:
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            Height: =46
+            Text: ="Do You WIsh to Accept this Meeting ?"
+            Visible: =If(Popup=true,true,false)
+            Width: =310
+            X: =528
+            Y: =410
+            ZIndex: =11
+
+        Button2_3 As button:
+            Fill: =RGBA(148, 27, 12, 1)
+            Height: =62
+            HoverFill: =RGBA(184, 0, 0, 1)
+            OnSelect: |
+                =Patch('PI-LSTW',Defaults('PI-LSTW'),{
+                
+                    Subject:Label3_1.Text},
+                    {Status:DecLbl_1.Text},
+                    {SID:IdLbl_1.Text}
+                
+                );
+                Set(Popup,false)
+            PressedColor: =RGBA(148, 27, 12, 1)
+            PressedFill: =RGBA(148, 27, 12, 1)
+            RadiusBottomLeft: =8
+            RadiusBottomRight: =8
+            RadiusTopLeft: =8
+            RadiusTopRight: =8
+            Text: ="Decline"
+            Visible: =If(Popup=true,true,false)
+            Width: =144
+            X: =758
+            Y: =508
+            ZIndex: =12
+
+        Image2_1 As image:
+            Height: =108
+            Image: =check_2
+            Visible: =If(Popup=true,true,false)
+            Width: =97
+            X: =641
+            Y: =302
+            ZIndex: =13
+
+        Label3_1 As label:
+            Align: =Align.Center
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            Height: =38
+            Size: =15
+            Text: =var
+            Visible: =If(Popup=true,true,false)
+            Width: =310
+            X: =528
+            Y: =274
+            ZIndex: =14
+
+        Icon1_1 As icon.CancelBadge:
+            Color: =RGBA(26, 26, 26, 1)
+            Height: =27
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(Popup,false)
+            Visible: =If(Popup=true,true,false)
+            Width: =30
+            X: =940
+            Y: =264
+            ZIndex: =15
+
+    IdLbl_1 As label:
+        Text: =Sid
+        Visible: =false
+        X: =1216
+        ZIndex: =18
+
+    Label8_1 As label:
+        Color: =RGBA(0, 18, 25, 1)
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        Size: =32
+        Text: ="Meetings"
+        Width: =248
+        X: =77
+        Y: =8
+        ZIndex: =21
+
+    Image6_1 As image:
+        Height: =46
+        Image: =calendar
+        Width: =52
+        X: =25
+        Y: =22
+        ZIndex: =22
+
+    Button10_2 As button:
+        Text: ="Button"
+        X: =77
+        Y: =80
+        ZIndex: =23
+
+    Label9 As label:
+        Text: |
+            =
+            Switch(
+                Lower(User().Email),
+                "chandimaga@masholdings.com", "Chandima",
+                "vithakshanap@masholdings.com", "Vithakshana",
+                "virajs@masholdings.com", "Viraj",
+                "devnied@masholdings.com", "Devnie",
+                "Default"
+            )
+        X: =628
+        Y: =85
+        ZIndex: =24
+

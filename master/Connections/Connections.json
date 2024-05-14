@@ -1,0 +1,78 @@
+{
+  "0aedc740-3c2c-4702-ad7c-817a4cd268ee": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3706/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "0aedc740-3c2c-4702-ad7c-817a4cd268ee"
+  },
+  "a9f67e16-2272-4ded-a747-a7be82f4d94d": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1685/1.0.1685.3700/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://massl-my.sharepoint.com/personal/bodylineanalytics_masholdings_com": {
+        "dataSources": {
+          "PI-LSTW": {
+            "tableName": "29eb5ee1-7886-45a0-ae26-2ae57399a304"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "PI-LSTW"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "a9f67e16-2272-4ded-a747-a7be82f4d94d"
+  },
+  "cad2631b-6686-4cc3-81c0-433067dff4a9": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Excel Online (Business)",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3695/excelonlinebusiness/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_excelonlinebusiness",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https%253A%252F%252Fmassl.sharepoint.com%252Fsites%252FBodyline%252FBA,b%2521QabMmWLfE06t7AH7NG9xEkf1novhSblGspi4PGUMdkGsRmKDWVy4Q4eO14HHdHns,01GENUBDIC62CBQNCNZRALE4W4PXL3JUD2": {
+        "dataSources": {
+          "Calendars": {
+            "tableName": "{C0A73BAC-3A87-4493-958C-182DB3EF9EBD}"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Calendars"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "cad2631b-6686-4cc3-81c0-433067dff4a9"
+  }
+}

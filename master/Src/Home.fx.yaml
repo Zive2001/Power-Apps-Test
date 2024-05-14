@@ -1,0 +1,308 @@
+Home As screen:
+
+    Button19 As button:
+        BorderThickness: =1
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =532
+        HoverBorderColor: =
+        HoverFill: =
+        PressedBorderColor: =
+        PressedFill: =
+        Text: ="Button"
+        Width: =630
+        X: =655
+        Y: =195
+        ZIndex: =1
+
+    Button18 As button:
+        BorderStyle: =BorderStyle.None
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(248, 247, 255, 1)
+        Height: =768
+        Text: =""
+        Width: =395
+        ZIndex: =2
+
+    Image9 As image:
+        Height: =205
+        Image: ='Image (7)'
+        Width: =189
+        X: =104
+        Y: =157
+        ZIndex: =3
+
+    Image12 As image:
+        Height: =40
+        Image: =Frame
+        Width: =40
+        X: =42
+        Y: =47
+        ZIndex: =4
+
+    Button17 As button:
+        DisabledBorderColor: =RGBA(0, 0, 0, 1)
+        DisabledFill: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(17, 17, 17, 1)
+        Height: =49
+        HoverFill: =RGBA(26, 26, 26, 1)
+        OnSelect: |-
+            =//If((EmailTextBox.Text ="chandimaga@masholdings.com" && "parakramag@masholdings.com" && "vithakshanap@masholdings.com" && "virajs@masholdings.com" && "devnied@masholdings.com" &&"BodylineAnalytics@masholdings.com"),Navigate(Main,ScreenTransition.Fade),Navigate(Home))
+            
+            
+            Switch(Lower(User().Email),
+                    "chandimaga@masholdings.com",Navigate(Main,ScreenTransition.Fade),
+                    "virajs@masholdings.com",Navigate(Main,ScreenTransition.Fade),
+                    "vithakshanap@masholdings.com",Navigate(Main,ScreenTransition.Fade),
+                    "devnied@masholdings.com",Navigate(Main,ScreenTransition.Fade),
+                    "bodylineanalytics@masholdings.com",Navigate(Main,ScreenTransition.Fade))
+        RadiusBottomLeft: =40
+        RadiusBottomRight: =40
+        RadiusTopLeft: =40
+        RadiusTopRight: =40
+        Text: ="Sign In"
+        Width: =557
+        X: =692
+        Y: =524
+        ZIndex: =5
+
+    Label24 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =25
+        Text: ="Calendar"
+        Width: =178
+        X: =82
+        Y: =47
+        ZIndex: =6
+
+    Label25 As label:
+        Color: =RGBA(149, 149, 149, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =63
+        Size: =10
+        Text: ="Manage any type of project more efficiently. No separate, clunky system."
+        Width: =238
+        X: =42
+        Y: =82
+        ZIndex: =7
+
+    Image9_2 As image:
+        Height: =233
+        Image: ='Image (8)'
+        Width: =211
+        X: =82
+        Y: =494
+        ZIndex: =8
+
+    Image12_4 As image:
+        Height: =40
+        Image: ='Frame (1)'
+        Width: =40
+        X: =42
+        Y: =378
+        ZIndex: =9
+
+    Label24_1 As label:
+        FontWeight: =FontWeight.Bold
+        Size: =25
+        Text: ="Work Load"
+        Width: =239
+        X: =82
+        Y: =378
+        ZIndex: =10
+
+    Label25_1 As label:
+        Color: =RGBA(149, 149, 149, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =63
+        Size: =10
+        Text: ="Manage any type of project more efficiently. No separate, clunky system."
+        Width: =238
+        X: =42
+        Y: =413
+        ZIndex: =11
+
+    Label7 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =18
+        Size: =9
+        Text: ="Get Started"
+        Width: =88
+        X: =42
+        Y: =145
+        ZIndex: =12
+
+    Icon5 As icon.ArrowRight:
+        Color: =RGBA(255, 191, 0, 1)
+        Height: =18
+        Icon: =Icon.ArrowRight
+        Width: =23
+        X: =118
+        Y: =145
+        ZIndex: =13
+
+    Label7_1 As label:
+        Color: =RGBA(0, 121, 187, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =18
+        Size: =9
+        Text: ="Get Started"
+        Width: =88
+        X: =42
+        Y: =476
+        ZIndex: =14
+
+    Icon5_1 As icon.ArrowRight:
+        Color: =RGBA(0, 121, 187, 1)
+        Height: =18
+        Icon: =Icon.ArrowRight
+        Width: =23
+        X: =118
+        Y: =476
+        ZIndex: =15
+
+    Label10 As label:
+        Align: =Align.Center
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =56
+        Size: =25
+        Text: ="Sign Up"
+        Visible: |
+            =false
+        Width: =215
+        X: =863
+        Y: =336
+        ZIndex: =16
+
+    EmailTextBox As text:
+        Align: =Align.Center
+        BorderColor: =RGBA(26, 26, 26, 1)
+        BorderThickness: =1
+        Color: =RGBA(26, 26, 26, 1)
+        Default: =User().Email
+        DisabledFill: =RGBA(243, 243, 243, 1)
+        Height: =49
+        HoverBorderColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(237, 237, 237, 1)
+        RadiusBottomLeft: =12
+        RadiusBottomRight: =12
+        RadiusTopLeft: =12
+        RadiusTopRight: =12
+        Width: =557
+        X: =692
+        Y: =443
+        ZIndex: =17
+
+    Label11 As label:
+        Color: =RGBA(77, 77, 77, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =15
+        Text: |-
+            ="Email :"
+        X: =678
+        Y: =392
+        ZIndex: =18
+
+    Image16 As image:
+        Image: ='Image (12)_1'
+        X: =1168
+        Y: =132
+        ZIndex: =19
+
+    Image17 As image:
+        Height: =71
+        Image: |
+            =Switch(
+                EmailTextBox.Text,
+                "chandimaga@masholdings.com", 'Ellipse 2',
+                "virajs@masholdings.com", 'Ellipse 4',
+                "vithakshanap@masholdings.com", 'Ellipse 1',
+                "devnied@masholdings.com", 'Ellipse 3'
+            )
+        Width: =73
+        X: =437
+        Y: =36
+        ZIndex: =20
+
+    Button20 As button:
+        Fill: =RGBA(17, 17, 17, 1)
+        Height: =30
+        RadiusBottomLeft: =40
+        RadiusBottomRight: =40
+        RadiusTopLeft: =40
+        RadiusTopRight: =40
+        Text: |-
+            =Switch(
+                EmailTextBox.Text,
+                "chandimaga@masholdings.com",
+                "Chandima Galketiya",
+                "virajs@masholdings.com",
+                "Viraj Samararathne",
+                "vithakshanap@masholdings.com",
+                "
+            Vithakshana Pathirathna",
+                "devnied@masholdings.com",
+                "
+            Devnie DeZoysa"
+            )
+        VerticalAlign: =VerticalAlign.Bottom
+        Width: =260
+        X: =522
+        Y: =47
+        ZIndex: =21
+
+    Label22 As label:
+        Color: =RGBA(77, 77, 77, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =45
+        Text: |-
+            =Switch(
+                EmailTextBox.Text,
+                "chandimaga@masholdings.com",
+                "Digital Evangelist  •Digital Excellence ",
+                "virajs@masholdings.com",
+                "Deputy General Manager-Simultaneous & Value Engineering  •Industrial Engineering",
+                "vithakshanap@masholdings.com",
+                "Manager - Autonomation  •Divisional Autonomation",
+                "devnied@masholdings.com",
+                "Senior Business Analyst  •Lean Enterprise "
+            )
+        Width: =797
+        X: =526
+        Y: =73
+        ZIndex: =22
+
+    Icon6 As icon.HalfFilledCircle:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        FocusedBorderThickness: =1
+        Height: =26
+        Icon: =Icon.HalfFilledCircle
+        Width: =14
+        X: =688
+        Y: =216
+        ZIndex: =23
+
+    Image19 As image:
+        Height: =95
+        Image: ='Black White Minimalist Logo'
+        ImagePosition: =ImagePosition.Fill
+        Width: =209
+        X: =869
+        Y: =244
+        ZIndex: =24
+
+    Label22_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(77, 77, 77, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =49
+        Text: ="Process Innovation -Leaders Standard Worksheet"
+        Width: =511
+        X: =718
+        Y: =323
+        ZIndex: =25
+
